@@ -41,12 +41,28 @@ const genererListeOptionDevise = (in_devises: DeviseType[]): string => {
   for (let devise of in_devises) {
     listeDeviseTxt += `<option value="${devise.code}">${devise.nom} - (${devise.symbole})</option>`;
   }
+  console.log("listeDeviseTxt", listeDeviseTxt);
   return listeDeviseTxt;
 };
 
-//je renseigne le type HTMLSelectElement + certifié non null avec !
+// ! === certifié non null
 const deviseInitSelect = document.querySelector("#devise-initiale")! as HTMLSelectElement;
 deviseInitSelect.innerHTML = genererListeOptionDevise(devises);
+let deviseInitValeur = deviseInitSelect.value;
+deviseInitSelect.addEventListener("change", () => {
+  deviseInitValeur = deviseInitSelect.value;
+  console.log("Valeur devise initiale : " + deviseInitValeur);
+});
 
 const deviseFinaleSelect = document.querySelector("#devise-finale")! as HTMLSelectElement;
 deviseFinaleSelect.innerHTML = genererListeOptionDevise(devises);
+let deviseFinaleValeur = deviseFinaleSelect.value;
+deviseFinaleSelect.addEventListener("change", () => {
+  deviseFinaleValeur = deviseFinaleSelect.value;
+});
+
+let montant: number;
+const montantInput = document.querySelector("#montant")! as HTMLInputElement;
+montantInput.addEventListener("keyup", () => {
+  montant = +montantInput.value;
+});
